@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Yelp-->
+        <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
                 <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JBK-G3-UqT" id="9b1-FV-Y9K">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="94.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2s-tV-HeX">
@@ -53,7 +53,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMQ-gx-gNj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMQ-gx-gNj">
                                                     <rect key="frame" x="81" y="67" width="125" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -124,7 +124,7 @@
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="hBp-HZ-JZL" secondAttribute="bottom" id="xb1-iW-j4o"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="rhj-Yd-JAG">
+                    <navigationItem key="navigationItem" id="rhj-Yd-JAG">
                         <barButtonItem key="leftBarButtonItem" title="Filters" id="lXM-t6-K4b">
                             <connections>
                                 <segue destination="JLF-4t-N1H" kind="modal" id="qRr-Xp-E8m"/>
@@ -151,23 +151,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HIh-ZL-aj2">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HIh-ZL-aj2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="89" id="fXV-ao-4NR" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="89"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="68" id="fXV-ao-4NR" customClass="SwitchCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fXV-ao-4NR" id="iaj-s0-NVy">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j78-jN-TIx">
-                                                    <rect key="frame" x="253" y="29" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j78-jN-TIx">
+                                                    <rect key="frame" x="249" y="18" width="51" height="31"/>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sih-We-Ihh">
-                                                    <rect key="frame" x="21" y="34" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="14" y="21" width="37.5" height="24.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -177,11 +177,37 @@
                                                 <constraint firstItem="Sih-We-Ihh" firstAttribute="leading" secondItem="iaj-s0-NVy" secondAttribute="leading" constant="14" id="Mm8-x8-j1w"/>
                                                 <constraint firstItem="Sih-We-Ihh" firstAttribute="centerY" secondItem="iaj-s0-NVy" secondAttribute="centerY" id="Tql-BY-jJl"/>
                                                 <constraint firstItem="j78-jN-TIx" firstAttribute="centerY" secondItem="iaj-s0-NVy" secondAttribute="centerY" id="ZS8-O3-KO6"/>
+                                                <constraint firstItem="j78-jN-TIx" firstAttribute="centerY" secondItem="Sih-We-Ihh" secondAttribute="centerY" id="qpL-kh-She"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="onSwitch" destination="j78-jN-TIx" id="NYX-Dl-DUY"/>
                                             <outlet property="switchLabel" destination="Sih-We-Ihh" id="94e-6e-ecc"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToggleCell" id="zYR-cA-IbU" customClass="ToggleCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160" width="320" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zYR-cA-IbU" id="kk6-8y-P73">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73h-1l-bYY">
+                                                    <rect key="frame" x="115" y="17" width="91" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="Show More"/>
+                                                    <connections>
+                                                        <action selector="toggleButtonClicked:" destination="zYR-cA-IbU" eventType="touchUpInside" id="lBc-O2-vKg"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="73h-1l-bYY" firstAttribute="centerY" secondItem="kk6-8y-P73" secondAttribute="centerY" id="ETr-SX-DYx"/>
+                                                <constraint firstItem="73h-1l-bYY" firstAttribute="centerX" secondItem="kk6-8y-P73" secondAttribute="centerX" id="OLi-tH-3lz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="toggleButton" destination="73h-1l-bYY" id="62f-Kq-yeg"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

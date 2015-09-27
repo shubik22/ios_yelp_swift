@@ -17,29 +17,30 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.titleView = UISearchBar()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
 
-        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            
-            for business in businesses {
-                print(business.name!)
-                print(business.address!)
-            }
-        })
+//        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
+//            self.businesses = businesses
+//            
+//            for business in businesses {
+//                print(business.name!)
+//                print(business.address!)
+//            }
+//        })
         
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
-            
-            for business in businesses {
-                print(business.name!)
-                print(business.address!)
-            }
-        }
+//        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+//            self.businesses = businesses
+//            self.tableView.reloadData()
+//            
+//            for business in businesses {
+//                print(business.name!)
+//                print(business.address!)
+//            }
+//        }
     }
 
     override func didReceiveMemoryWarning() {

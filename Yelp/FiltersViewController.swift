@@ -12,9 +12,20 @@ import UIKit
     optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, ToggleCellDelegate {
 
     weak var delegate: FiltersViewControllerDelegate?
+
+    let sections = [
+        "Deals",
+        "Categories"
+    ]
+    let defaultNumberOfCategoriesShown = 3
+
+    var categories: [[String:String]]!
+    var categorySwitchStates = [Int:Bool]()
+    var offeringADeal: Bool?
+    var showAllCategories = false
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func onCancelButton(sender: AnyObject) {
@@ -24,9 +35,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         dismissViewControllerAnimated(true, completion: nil)
         
         var filters = [String:AnyObject]()
-        
         var selectedCategories = [String]()
-        for (row,isSelected) in switchStates {
+        for (row,isSelected) in categorySwitchStates {
             if isSelected {
                 selectedCategories.append(categories[row]["code"]!)
             }
@@ -38,9 +48,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
-    
-    var categories: [[String:String]]!
-    var switchStates = [Int:Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,26 +63,96 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return numberOfCategoryCells()
+        default:
+            assert(false)
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            return setupDealCell(indexPath)
+        case 1:
+            if indexPath.row == numberOfCategoryCells() - 1 {
+                return setupToggleCell(indexPath)
+            } else {
+                return setupCategoryCell(indexPath)
+            }
+        default:
+            assert(false)
+        }
+    }
+    
+    func setupDealCell(indexPath: NSIndexPath) -> SwitchCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-        
-        cell.switchLabel.text = categories[indexPath.row]["name"]
+        cell.switchLabel.text = "Offering A Deal"
+        cell.onSwitch.on = offeringADeal ?? false
         cell.delegate = self
-        
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
-        
         return cell
+    }
+
+    func setupToggleCell(indexPath: NSIndexPath) -> ToggleCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ToggleCell", forIndexPath: indexPath) as! ToggleCell
+        cell.setTitle(titleCellTitle())
+        cell.delegate = self
+        return cell
+    }
+    
+    func setupCategoryCell(indexPath: NSIndexPath) -> SwitchCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+        cell.switchLabel.text = categories[indexPath.row]["name"]
+        cell.onSwitch.on = categorySwitchStates[indexPath.row] ?? false
+        cell.delegate = self
+        return cell
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UITableViewHeaderFooterView()
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
-        
-        switchStates[indexPath.row] = value
+        switch indexPath.section {
+        case 0:
+            offeringADeal = value
+        case 1:
+            categorySwitchStates[indexPath.row] = value
+        default:
+            assert(false)
+        }
     }
-
+    
+    func toggleCell(toggleCell: ToggleCell) {
+        let indexPath = tableView.indexPathForCell(toggleCell)!
+        if indexPath.section == 1 {
+            showAllCategories = !showAllCategories
+            toggleCell.setTitle(titleCellTitle())
+            tableView.reloadData()
+        }
+    }
+    
+    func numberOfCategoryCells() -> Int {
+        return showAllCategories ? categories.count + 1 : defaultNumberOfCategoriesShown + 1
+    }
+    
+    func titleCellTitle() -> String {
+        return showAllCategories ? "Show Less" : "Show More"
+    }
+    
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code": "afghani"],
             ["name" : "African", "code": "african"],
