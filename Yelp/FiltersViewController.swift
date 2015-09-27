@@ -70,11 +70,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
+        case sections.indexOf("Deals")!:
             return numberOfDealCells
-        case 1:
+        case sections.indexOf("Categories")!:
             return numberOfCategoryCells()
-        case 2:
+        case sections.indexOf("Distance")!:
             return distances.count
         default:
             assert(false)
@@ -83,15 +83,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0:
+        case sections.indexOf("Deals")!:
             return setupDealCell(indexPath)
-        case 1:
+        case sections.indexOf("Categories")!:
             if indexPath.row == numberOfCategoryCells() - 1 {
                 return setupToggleCell(indexPath)
             } else {
                 return setupCategoryCell(indexPath)
             }
-        case 2:
+        case sections.indexOf("Distance")!:
             return setupDistanceToggleCell(indexPath)
         default:
             assert(false)
@@ -146,11 +146,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
         switch indexPath.section {
-        case 0:
+        case sections.indexOf("Deals")!:
             offeringADeal = value
-        case 1:
+        case sections.indexOf("Categories")!:
             categorySwitchStates[indexPath.row] = value
-        case 2:
+        case sections.indexOf("Distance")!:
             selectedDistanceIndex = value ? indexPath.row : nil
             updateDistanceSwitches()
             tableView.reloadData()
@@ -177,7 +177,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func updateDistanceSwitches() {
-        print("updating distance switches")
         for distance in distances {
             let idx = distances.indexOf(distance)
             let indexPath = NSIndexPath(forRow: idx!, inSection: 2)
