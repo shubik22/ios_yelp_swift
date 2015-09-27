@@ -18,14 +18,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
 
     let sections = [
         "Deals",
-        "Categories"
+        "Categories",
+        "Distance"
     ]
+    let distances = [0.5, 1.0, 5.0, 10.0, 20.0]
+    let numberOfDealCells = 1
     let defaultNumberOfCategoriesShown = 3
 
     var categories: [[String:String]]!
     var categorySwitchStates = [Int:Bool]()
     var offeringADeal: Bool?
     var showAllCategories = false
+    var selectedDistanceIndex: Int?
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func onCancelButton(sender: AnyObject) {
@@ -53,6 +57,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         categories = yelpCategories()
         
+        navigationItem.titleView?.tintColor = UIColor.whiteColor()
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -65,9 +71,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return numberOfDealCells
         case 1:
             return numberOfCategoryCells()
+        case 2:
+            return distances.count
         default:
             assert(false)
         }
@@ -83,6 +91,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 return setupCategoryCell(indexPath)
             }
+        case 2:
+            return setupDistanceToggleCell(indexPath)
         default:
             assert(false)
         }
@@ -111,6 +121,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
+    func setupDistanceToggleCell(indexPath: NSIndexPath) -> SwitchCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+        let distance = distances[indexPath.row]
+        cell.switchLabel.text = "\(distance) miles"
+        cell.onSwitch.on = (indexPath.row == selectedDistanceIndex)
+        cell.delegate = self
+        return cell
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
@@ -131,6 +150,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             offeringADeal = value
         case 1:
             categorySwitchStates[indexPath.row] = value
+        case 2:
+            selectedDistanceIndex = value ? indexPath.row : nil
+            updateDistanceSwitches()
+            tableView.reloadData()
         default:
             assert(false)
         }
@@ -151,6 +174,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func titleCellTitle() -> String {
         return showAllCategories ? "Show Less" : "Show More"
+    }
+    
+    func updateDistanceSwitches() {
+        print("updating distance switches")
+        for distance in distances {
+            let idx = distances.indexOf(distance)
+            let indexPath = NSIndexPath(forRow: idx!, inSection: 2)
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.onSwitch.on = (idx == selectedDistanceIndex)
+        }
     }
     
     func yelpCategories() -> [[String:String]] {

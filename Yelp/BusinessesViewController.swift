@@ -17,7 +17,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.titleView = UISearchBar()
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Restaurants"
+        navigationItem.titleView = searchBar
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
