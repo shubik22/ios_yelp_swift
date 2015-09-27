@@ -59,12 +59,14 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         categories = yelpCategories()
         
         navigationItem.titleView?.tintColor = UIColor.whiteColor()
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = 60
     }
 
     override func didReceiveMemoryWarning() {
@@ -156,6 +158,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UITableViewHeaderFooterView()
+        headerView.backgroundColor = UIColor.whiteColor()
         return headerView
     }
     

@@ -20,7 +20,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let searchBar = UISearchBar()
         searchBar.placeholder = "Restaurants"
         navigationItem.titleView = searchBar
-        
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
