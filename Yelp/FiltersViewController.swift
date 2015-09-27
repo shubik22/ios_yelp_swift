@@ -17,10 +17,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     weak var delegate: FiltersViewControllerDelegate?
 
     let sections = [
+        "Sort By",
         "Deals",
-        "Categories",
         "Distance",
-        "Sort By"
+        "Categories"
     ]
     let distances = [0.5, 1.0, 5.0, 10.0, 20.0]
     let numberOfDealCells = 1
@@ -199,7 +199,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func updateDistanceSwitches() {
         for distance in distances {
             let idx = distances.indexOf(distance)
-            let indexPath = NSIndexPath(forRow: idx!, inSection: 2)
+            let indexPath = NSIndexPath(forRow: idx!, inSection: sections.indexOf("Distance")!)
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
             cell.onSwitch.on = (idx == selectedDistanceIndex)
         }

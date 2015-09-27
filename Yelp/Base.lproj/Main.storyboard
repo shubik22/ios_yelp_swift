@@ -227,6 +227,7 @@
                                                         <segment title="Second"/>
                                                         <segment title=""/>
                                                     </segments>
+                                                    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="segmentedControlChanged:" destination="hgT-fR-FWt" eventType="valueChanged" id="YDZ-nI-JHC"/>
                                                     </connections>
@@ -267,6 +268,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="tableView" destination="HIh-ZL-aj2" id="4u1-08-11g"/>
                     </connections>
