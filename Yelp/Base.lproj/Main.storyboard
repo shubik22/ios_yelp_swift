@@ -213,6 +213,35 @@
                                             <outlet property="toggleButton" destination="73h-1l-bYY" id="62f-Kq-yeg"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SegmentedControlCell" id="hgT-fR-FWt" customClass="SegmentedControlCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="228" width="320" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgT-fR-FWt" id="EFd-gh-g4t">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ea3-dO-bgV">
+                                                    <rect key="frame" x="10" y="20" width="300" height="29"/>
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="segmentedControlChanged:" destination="hgT-fR-FWt" eventType="valueChanged" id="YDZ-nI-JHC"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ea3-dO-bgV" secondAttribute="trailing" constant="10" id="Rht-uU-Cvq"/>
+                                                <constraint firstItem="ea3-dO-bgV" firstAttribute="centerY" secondItem="EFd-gh-g4t" secondAttribute="centerY" id="meA-ac-ahP"/>
+                                                <constraint firstItem="ea3-dO-bgV" firstAttribute="leading" secondItem="EFd-gh-g4t" secondAttribute="leading" constant="10" id="tJK-qP-T5C"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="segmentedControl" destination="ea3-dO-bgV" id="vkb-8b-T6X"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>

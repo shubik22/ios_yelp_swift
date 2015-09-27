@@ -12,24 +12,28 @@ import UIKit
     optional func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, ToggleCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, ToggleCellDelegate, SegmentedControlCellDelegate {
 
     weak var delegate: FiltersViewControllerDelegate?
 
     let sections = [
         "Deals",
         "Categories",
-        "Distance"
+        "Distance",
+        "Sort By"
     ]
     let distances = [0.5, 1.0, 5.0, 10.0, 20.0]
     let numberOfDealCells = 1
+    let numberOfSortByCells = 1
     let defaultNumberOfCategoriesShown = 3
+    let sortByOptions = ["Best Match", "Distance", "Highest Rated"]
 
     var categories: [[String:String]]!
     var categorySwitchStates = [Int:Bool]()
     var offeringADeal: Bool?
     var showAllCategories = false
     var selectedDistanceIndex: Int?
+    var selectedSortIndex = 0
     
     @IBOutlet weak var tableView: UITableView!
     @IBAction func onCancelButton(sender: AnyObject) {
@@ -76,6 +80,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return numberOfCategoryCells()
         case sections.indexOf("Distance")!:
             return distances.count
+        case sections.indexOf("Sort By")!:
+            return numberOfSortByCells
         default:
             assert(false)
         }
@@ -93,6 +99,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         case sections.indexOf("Distance")!:
             return setupDistanceToggleCell(indexPath)
+        case sections.indexOf("Sort By")!:
+            return setupSegmentedControlCell(indexPath)
         default:
             assert(false)
         }
@@ -130,6 +138,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
+    func setupSegmentedControlCell(indexPath: NSIndexPath) -> SegmentedControlCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SegmentedControlCell", forIndexPath: indexPath) as! SegmentedControlCell
+        for title in sortByOptions {
+            let idx = sortByOptions.indexOf(title)!
+            cell.segmentedControl.setTitle(title, forSegmentAtIndex: idx)
+        }
+        
+        cell.segmentedControl.selectedSegmentIndex = selectedSortIndex
+        cell.delegate = self
+        return cell
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
@@ -161,7 +181,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func toggleCell(toggleCell: ToggleCell) {
         let indexPath = tableView.indexPathForCell(toggleCell)!
-        if indexPath.section == 1 {
+        if indexPath.section == sections.indexOf("Categories")! {
             showAllCategories = !showAllCategories
             toggleCell.setTitle(titleCellTitle())
             tableView.reloadData()
@@ -182,6 +202,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let indexPath = NSIndexPath(forRow: idx!, inSection: 2)
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
             cell.onSwitch.on = (idx == selectedDistanceIndex)
+        }
+    }
+    
+    func segmentedControlCell(segmentedControlCell: SegmentedControlCell, selectedIndex value: Int) {
+        let indexPath = tableView.indexPathForCell(segmentedControlCell)!
+        if indexPath.section == sections.indexOf("Sort By") {
+            selectedSortIndex = segmentedControlCell.segmentedControl.selectedSegmentIndex
         }
     }
     
