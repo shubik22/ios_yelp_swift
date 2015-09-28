@@ -141,7 +141,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.switchLabel.text = categories[indexPath.row]["name"]
         cell.delegate = self
         addCustomControlToSwitchCell(cell, on: categorySwitchStates[indexPath.row] ?? false)
-        
         return cell
     }
     
@@ -190,7 +189,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             categorySwitchStates[indexPath.row] = switchCell.onSwitch!.on
         case sections.indexOf("Distance")!:
             selectedDistanceIndex = switchCell.onSwitch!.on ? indexPath.row : nil
-            updateDistanceSwitches()
             tableView.reloadData()
         default:
             assert(false)
@@ -201,6 +199,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let customSwitch = SevenSwitch()
         customSwitch.thumbImage = UIImage(named: "yelp-button")
         customSwitch.onTintColor = UIColor.redColor()
+        customSwitch.backgroundColor = UIColor.whiteColor()
+        customSwitch.onThumbTintColor = UIColor.whiteColor()
         customSwitch.on = on
         cell.addSubview(customSwitch)
         
@@ -223,15 +223,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func titleCellTitle() -> String {
         return showAllCategories ? "Show Less" : "Show More"
-    }
-    
-    func updateDistanceSwitches() {
-        for distance in distances {
-            let idx = distances.indexOf(distance)
-            let indexPath = NSIndexPath(forRow: idx!, inSection: sections.indexOf("Distance")!)
-            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.onSwitch!.on = (idx == selectedDistanceIndex)
-        }
     }
     
     func segmentedControlCell(segmentedControlCell: SegmentedControlCell, selectedIndex value: Int) {
