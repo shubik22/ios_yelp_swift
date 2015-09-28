@@ -1,34 +1,16 @@
-### Basic Yelp client
+# Yelp Client
+Codepath Week 2 Assignment
 
-This is a headless example of how to implement an OAuth 1.0a Yelp API client. The Yelp API provides an application token that allows applications to make unauthenticated requests to their search API.
+Time spent: ~10 - 12 hours
 
-### Next steps
-
-- Check out `BusinessesViewController.swift` to see how to use the `Business` model.
-
-### Sample request
-
-**Basic search with query**
-
-```
-Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-    self.businesses = businesses
-    
-    for business in businesses {
-        println(business.name!)
-        println(business.address!)
-    }
-})
-```
-
-**Advanced search with categories, sort, and deal filters**
-
-```
-Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-
-    for business in businesses {
-        println(business.name!)
-        println(business.address!)
-    }
-}
-```
+Completed stories:
+* Search results page
+  * Table rows should be dynamic height according to the content height.
+  * Custom cells should have the proper Auto Layout constraints.
+  * Search bar should be in the navigation bar
+* Filter page
+  * The filters you should actually have are: category, sort (best match, distance, highest rated), radius (meters), deals (on/off).
+  * The filters table should be organized into sections as in the mock.
+  * You can use the default UISwitch for on/off states. Implement a custom switch (optional)
+  * Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
+  * Categories should show a subset of the full list with a "See All" row to expand (optional)
