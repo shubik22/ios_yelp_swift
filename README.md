@@ -16,6 +16,3 @@ Completed stories:
   * Categories should show a subset of the full list with a "See All" row to expand (optional)
 
 ![Video Walkthrough](yelp.gif)
-
-TODO:
-* Fix display bug for custom UISwitch

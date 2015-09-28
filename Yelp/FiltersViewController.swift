@@ -124,7 +124,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupDealCell(indexPath: NSIndexPath) -> SwitchCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.switchLabel.text = "Offering A Deal"
-        addCustomControlToSwitchCell(cell, on: offeringADeal ?? false)
+        if cell.onSwitch == nil {
+            addCustomControlToSwitchCell(cell)
+        }
+        cell.onSwitch!.on = offeringADeal ?? false
         cell.delegate = self
         return cell
     }
@@ -140,7 +143,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.switchLabel.text = categories[indexPath.row]["name"]
         cell.delegate = self
-        addCustomControlToSwitchCell(cell, on: categorySwitchStates[indexPath.row] ?? false)
+        if cell.onSwitch == nil {
+            addCustomControlToSwitchCell(cell)
+        }
+        cell.onSwitch!.on = categorySwitchStates[indexPath.row] ?? false
         return cell
     }
     
@@ -149,8 +155,10 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let distance = distances[indexPath.row]
         cell.switchLabel.text = "\(distance) miles"
         cell.delegate = self
-
-        addCustomControlToSwitchCell(cell, on: indexPath.row == selectedDistanceIndex)
+        if cell.onSwitch == nil {
+            addCustomControlToSwitchCell(cell)
+        }
+        cell.onSwitch!.on = indexPath.row == selectedDistanceIndex
         return cell
     }
     
@@ -195,13 +203,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func addCustomControlToSwitchCell(cell: SwitchCell, on: Bool) {
+    func addCustomControlToSwitchCell(cell: SwitchCell) {
         let customSwitch = SevenSwitch()
         customSwitch.thumbImage = UIImage(named: "yelp-button")
         customSwitch.onTintColor = UIColor.redColor()
         customSwitch.backgroundColor = UIColor.whiteColor()
         customSwitch.onThumbTintColor = UIColor.whiteColor()
-        customSwitch.on = on
         cell.addSubview(customSwitch)
         
         customSwitch.frame = CGRectMake(cell.frame.size.width - customSwitch.frame.size.width - 20, (cell.frame.size.height - customSwitch.frame.size.height)/2, customSwitch.frame.size.width, customSwitch.frame.size.height)
