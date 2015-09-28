@@ -111,7 +111,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupDealCell(indexPath: NSIndexPath) -> SwitchCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.switchLabel.text = "Offering A Deal"
-        cell.onSwitch.on = offeringADeal ?? false
+        addCustomControlToSwitchCell(cell, on: offeringADeal ?? false)
         cell.delegate = self
         return cell
     }
@@ -126,8 +126,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func setupCategoryCell(indexPath: NSIndexPath) -> SwitchCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         cell.switchLabel.text = categories[indexPath.row]["name"]
-        cell.onSwitch.on = categorySwitchStates[indexPath.row] ?? false
         cell.delegate = self
+        addCustomControlToSwitchCell(cell, on: categorySwitchStates[indexPath.row] ?? false)
+        
         return cell
     }
     
@@ -135,8 +136,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
         let distance = distances[indexPath.row]
         cell.switchLabel.text = "\(distance) miles"
-        cell.onSwitch.on = (indexPath.row == selectedDistanceIndex)
         cell.delegate = self
+
+        addCustomControlToSwitchCell(cell, on: indexPath.row == selectedDistanceIndex)
         return cell
     }
     
@@ -182,6 +184,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    func addCustomControlToSwitchCell(cell: SwitchCell, on: Bool) {
+        let customSwitch = SevenSwitch()
+        customSwitch.thumbImage = UIImage(named: "yelp-button")
+        customSwitch.onTintColor = UIColor.redColor()
+        cell.addSubview(customSwitch)
+        
+        customSwitch.frame = CGRectMake(cell.frame.size.width - customSwitch.frame.size.width - 20, (cell.frame.size.height - customSwitch.frame.size.height)/2, customSwitch.frame.size.width, customSwitch.frame.size.height)
+        cell.onSwitch = customSwitch
+        cell.onSwitch?.on = on
+    }
+    
     func toggleCell(toggleCell: ToggleCell) {
         let indexPath = tableView.indexPathForCell(toggleCell)!
         if indexPath.section == sections.indexOf("Categories")! {
@@ -204,7 +217,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             let idx = distances.indexOf(distance)
             let indexPath = NSIndexPath(forRow: idx!, inSection: sections.indexOf("Distance")!)
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.onSwitch.on = (idx == selectedDistanceIndex)
+            cell.onSwitch!.on = (idx == selectedDistanceIndex)
         }
     }
     

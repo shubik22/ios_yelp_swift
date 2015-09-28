@@ -48,12 +48,12 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="88 Division St, Mission Bay" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUR-0O-box">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="88 Division St, Mission Bay" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUR-0O-box">
                                                     <rect key="frame" x="81" y="50" width="164" height="13"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMQ-gx-gNj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Thai, Seafood, Salad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMQ-gx-gNj">
                                                     <rect key="frame" x="81" y="67" width="125" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,10 +164,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j78-jN-TIx">
-                                                    <rect key="frame" x="249" y="18" width="51" height="31"/>
-                                                    <color key="onTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sih-We-Ihh">
                                                     <rect key="frame" x="14" y="21" width="103.5" height="24.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -176,15 +172,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="j78-jN-TIx" secondAttribute="trailing" constant="14" id="Cei-Ci-56M"/>
                                                 <constraint firstItem="Sih-We-Ihh" firstAttribute="leading" secondItem="iaj-s0-NVy" secondAttribute="leading" constant="14" id="Mm8-x8-j1w"/>
                                                 <constraint firstItem="Sih-We-Ihh" firstAttribute="centerY" secondItem="iaj-s0-NVy" secondAttribute="centerY" id="Tql-BY-jJl"/>
-                                                <constraint firstItem="j78-jN-TIx" firstAttribute="centerY" secondItem="iaj-s0-NVy" secondAttribute="centerY" id="ZS8-O3-KO6"/>
-                                                <constraint firstItem="j78-jN-TIx" firstAttribute="centerY" secondItem="Sih-We-Ihh" secondAttribute="centerY" id="qpL-kh-She"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="onSwitch" destination="j78-jN-TIx" id="NYX-Dl-DUY"/>
                                             <outlet property="switchLabel" destination="Sih-We-Ihh" id="94e-6e-ecc"/>
                                         </connections>
                                     </tableViewCell>
