@@ -20,7 +20,6 @@ class BusinessCell: UITableViewCell {
 
     var business: Business! {
         didSet {
-            print(business.imageURL)
             nameLabel.text = business.name
             thumbnailImageView.setImageWithURL(business.imageURL)
             categoriesLabel.text = business.categories

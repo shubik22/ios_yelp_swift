@@ -23,10 +23,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         "Categories"
     ]
     let distances = [0.5, 1.0, 5.0, 10.0, 20.0]
+    let metersInAMile = 1609.34
     let numberOfDealCells = 1
     let numberOfSortByCells = 1
     let defaultNumberOfCategoriesShown = 3
-    let sortByOptions = ["Best Match", "Distance", "Highest Rated"]
+    let sortByOptions = ["Best Match",
+                         "Distance",
+                         "Highest Rated"]
 
     var categories: [[String:String]]!
     var categorySwitchStates = [Int:Bool]()
@@ -49,10 +52,20 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
                 selectedCategories.append(categories[row]["code"]!)
             }
         }
-        
+
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories
         }
+
+        if let index = selectedDistanceIndex {
+            let meters = distances[index] * metersInAMile
+            filters["distance"] = meters
+        }
+
+        filters["deals"] = offeringADeal
+        filters["sort"] = selectedSortIndex
+        
+        print("Filters: \(filters)")
         
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
@@ -172,11 +185,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let indexPath = tableView.indexPathForCell(switchCell)!
         switch indexPath.section {
         case sections.indexOf("Deals")!:
-            offeringADeal = value
+            offeringADeal = switchCell.onSwitch!.on
         case sections.indexOf("Categories")!:
-            categorySwitchStates[indexPath.row] = value
+            categorySwitchStates[indexPath.row] = switchCell.onSwitch!.on
         case sections.indexOf("Distance")!:
-            selectedDistanceIndex = value ? indexPath.row : nil
+            selectedDistanceIndex = switchCell.onSwitch!.on ? indexPath.row : nil
             updateDistanceSwitches()
             tableView.reloadData()
         default:
@@ -188,11 +201,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let customSwitch = SevenSwitch()
         customSwitch.thumbImage = UIImage(named: "yelp-button")
         customSwitch.onTintColor = UIColor.redColor()
+        customSwitch.on = on
         cell.addSubview(customSwitch)
         
         customSwitch.frame = CGRectMake(cell.frame.size.width - customSwitch.frame.size.width - 20, (cell.frame.size.height - customSwitch.frame.size.height)/2, customSwitch.frame.size.width, customSwitch.frame.size.height)
         cell.onSwitch = customSwitch
-        cell.onSwitch?.on = on
     }
     
     func toggleCell(toggleCell: ToggleCell) {
@@ -227,7 +240,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             selectedSortIndex = segmentedControlCell.segmentedControl.selectedSegmentIndex
         }
     }
-    
+
     func yelpCategories() -> [[String:String]] {
         return [["name" : "Afghan", "code": "afghani"],
             ["name" : "African", "code": "african"],
